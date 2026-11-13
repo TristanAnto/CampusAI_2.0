@@ -1,0 +1,12 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+storage/uploads/
+storage/chroma_db/
+campus_ai.db
+*.db
+.DS_Store
+Thumbs.db
+.ipynb_checkpoints
