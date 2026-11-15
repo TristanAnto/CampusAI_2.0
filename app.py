@@ -25,29 +25,42 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Professional CSS - White background, dark blue buttons, black/white text
+# Professional CSS - Modern Indigo/Slate theme
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --dark-blue: #1A237E;
-    --dark-blue-hover: #0D1A5C;
-    --white: #FFFFFF;
-    --black: #1A1A1A;
-    --gray: #4A4A4A;
-    --light-gray: #F5F5F5;
-    --border: #E0E0E0;
+    --primary: #3730A3;
+    --primary-hover: #312E81;
+    --primary-light: #EDE9FE;
+    --secondary: #4338CA;
+    --accent: #0EA5E9;
+    --bg: #F8FAFC;
+    --surface: #FFFFFF;
+    --surface-hover: #F1F5F9;
+    --text: #0F172A;
+    --text-muted: #64748B;
+    --border: #E2E8F0;
+    --success: #10B981;
+    --success-bg: #ECFDF5;
+    --error: #EF4444;
+    --error-bg: #FEF2F2;
+    --warning: #F59E0B;
+    --warning-bg: #FFFBEB;
+    --radius: 12px;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.10);
 }
 
 html, body, [class*="css"] {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background-color: var(--white);
-    color: var(--black);
+    background-color: var(--bg);
+    color: var(--text);
 }
 
 .stApp {
-    background-color: var(--white);
+    background-color: var(--bg);
 }
 
 /* Hide Streamlit branding */
@@ -57,7 +70,7 @@ header {visibility: hidden;}
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-    color: var(--black);
+    color: var(--text);
     font-weight: 700;
     letter-spacing: -0.02em;
     font-family: 'Inter', sans-serif;
@@ -80,13 +93,13 @@ h3 {
 }
 
 p, .stMarkdown, .stText {
-    color: var(--black);
+    color: var(--text);
     line-height: 1.6;
 }
 
 /* Sidebar */
 section[data-testid="stSidebar"] {
-    background-color: var(--light-gray);
+    background-color: var(--surface);
     border-right: 1px solid var(--border);
 }
 
@@ -99,7 +112,7 @@ section[data-testid="stSidebar"] h2,
 section[data-testid="stSidebar"] h3,
 section[data-testid="stSidebar"] .stSelectbox label,
 section[data-testid="stSidebar"] .stRadio label {
-    color: var(--black);
+    color: var(--text);
     font-weight: 600;
 }
 
@@ -112,117 +125,137 @@ section[data-testid="stSidebar"] .stRadio label {
 
 /* Buttons - Primary */
 .stButton > button {
-    background-color: var(--dark-blue);
-    color: var(--white);
+    background-color: var(--primary);
+    color: var(--surface);
     border: none;
-    border-radius: 6px;
-    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    padding: 0.875rem 1.75rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(55, 48, 163, 0.15);
+}
+
+.stButton > button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Buttons - Secondary (outline) */
+.stButton button[kind="secondary"] {
+    background-color: var(--surface);
+    color: var(--primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.875rem 1.75rem;
     font-weight: 600;
     font-size: 0.95rem;
     transition: all 0.2s ease;
     width: 100%;
 }
 
-.stButton > button:hover {
-    background-color: var(--dark-blue-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(26, 35, 126, 0.25);
+.stButton button[kind="secondary"]:hover {
+    background-color: var(--primary-light);
+    border-color: var(--primary);
 }
 
 /* Inputs */
 .stTextInput > div > div > input,
 .stTextArea > div > div > textarea,
 .stSelectbox > div > div > div {
-    background-color: var(--white);
+    background-color: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--black);
+    border-radius: var(--radius);
+    color: var(--text);
     font-size: 0.95rem;
+    padding: 0.75rem 1rem;
 }
 
 .stTextInput > div > div > input:focus,
 .stTextArea > div > div > textarea:focus,
 .stSelectbox > div > div > div:focus {
-    border-color: var(--dark-blue);
-    box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(55, 48, 163, 0.1);
 }
 
 /* File uploader */
 .stFileUploader {
     border: 2px dashed var(--border);
-    border-radius: 8px;
-    padding: 2rem;
+    border-radius: var(--radius);
+    padding: 2.5rem;
     text-align: center;
-    background-color: var(--white);
+    background-color: var(--surface);
     transition: all 0.2s ease;
 }
 
 .stFileUploader:hover {
-    border-color: var(--dark-blue);
-    background-color: var(--light-gray);
+    border-color: var(--primary);
+    background-color: var(--primary-light);
 }
 
 /* Cards */
 .stContainer, .stMarkdown > div {
-    background-color: var(--white);
-    border-radius: 8px;
-    padding: 1.5rem;
+    background-color: var(--surface);
+    border-radius: var(--radius);
+    padding: 1.75rem;
     margin-bottom: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow);
     border: 1px solid var(--border);
 }
 
 /* Metrics */
 .stMetric {
-    background-color: var(--white);
+    background-color: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    box-shadow: var(--shadow);
 }
 
 .stMetric [data-testid="stMetricValue"] {
-    color: var(--dark-blue);
+    color: var(--primary);
     font-weight: 700;
     font-size: 1.75rem;
 }
 
 .stMetric [data-testid="stMetricLabel"] {
-    color: var(--gray);
+    color: var(--text-muted);
     font-weight: 500;
     font-size: 0.875rem;
 }
 
 /* Alerts */
 .stAlert {
-    border-radius: 6px;
+    border-radius: var(--radius);
     border: none;
     padding: 1rem 1.25rem;
     margin-bottom: 1rem;
 }
 
 .stSuccess {
-    background-color: #F0F4FF;
-    color: var(--dark-blue);
-    border-left: 4px solid var(--dark-blue);
+    background-color: var(--success-bg);
+    color: var(--success);
+    border-left: 4px solid var(--success);
 }
 
 .stError {
-    background-color: #FFF0F0;
-    color: #B00020;
-    border-left: 4px solid #B00020;
+    background-color: var(--error-bg);
+    color: var(--error);
+    border-left: 4px solid var(--error);
 }
 
 .stWarning {
-    background-color: #FFF8E1;
-    color: #8A6D1A;
-    border-left: 4px solid #F9A825;
+    background-color: var(--warning-bg);
+    color: var(--warning);
+    border-left: 4px solid var(--warning);
 }
 
 .stInfo {
-    background-color: #E3F2FD;
-    color: #1565C0;
-    border-left: 4px solid #2196F3;
+    background-color: var(--primary-light);
+    color: var(--primary);
+    border-left: 4px solid var(--primary);
 }
 
 /* Divider */
@@ -251,32 +284,32 @@ hr {
 
 /* Login page center */
 .login-container {
-    max-width: 420px;
+    max-width: 440px;
     margin: 4rem auto;
-    padding: 2.5rem;
-    background: var(--white);
-    border-radius: 12px;
+    padding: 3rem;
+    background: var(--surface);
+    border-radius: 16px;
     border: 1px solid var(--border);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-hover);
 }
 
 .admin-login-container {
-    max-width: 420px;
+    max-width: 440px;
     margin: 4rem auto;
-    padding: 2.5rem;
-    background: var(--white);
-    border-radius: 12px;
+    padding: 3rem;
+    background: var(--surface);
+    border-radius: 16px;
     border: 1px solid var(--border);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-hover);
 }
 
 /* Feature cards on dashboard */
 .feature-card {
-    background: var(--white);
+    background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.75rem;
-    height: 200px;
+    border-radius: var(--radius);
+    padding: 2rem;
+    height: 220px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -286,9 +319,9 @@ hr {
 }
 
 .feature-card:hover {
-    border-color: var(--dark-blue);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(26, 35, 126, 0.12);
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
 }
 
 .feature-card h3 {
@@ -297,9 +330,34 @@ hr {
 }
 
 .feature-card p {
-    color: var(--gray);
+    color: var(--text-muted);
     font-size: 0.95rem;
     margin: 0;
+}
+
+/* Radio button styling */
+.stRadio > div[role="radiogroup"] > label {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.stRadio > div[role="radiogroup"] > label:hover {
+    border-color: var(--primary);
+    background-color: var(--primary-light);
+}
+
+/* Selectbox focus */
+.stSelectbox > div > div {
+    border-radius: var(--radius);
+}
+
+/* Slider styling */
+.stSlider > div[data-baseweb="slider"] > div {
+    color: var(--primary);
 }
 </style>
 """, unsafe_allow_html=True)
